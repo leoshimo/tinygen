@@ -11,7 +11,7 @@ lint: 	## Lint project
 	poetry run ruff .
 
 server: ## Start app server
-	poetry run uvicorn tinygen.server:app --reload
+	poetry run uvicorn tinygen.app:app --reload
 
 notebook: ## Start notebook
 	poetry run jupyter notebook --notebook-dir=notebooks
