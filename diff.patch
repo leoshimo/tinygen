@@ -1,0 +1,54 @@
+--- a/README.md
++++ b/README.md
+@@ -1,37 +1 @@
+-# README
+-
+-[Copier](https://copier.readthedocs.io/) template for a simple Python projects
+-
+-- Python project with `src` and `test` managed by `poetry`
+-- `notebooks` for Jupyter notebooks
+-- `Makefile` as task runner. See `make help`
+-
+-## Prerequisites
+-
+-- `pyenv`
+-- `poetry`
+-- `copier`
+-
+-## Project Setup
+-
+-```sh
+-$ copier copy gh:leoshimo/copier_python_template my_project
+-$ cd my_project
+-$ make setup
+-```
+-
+-## Running Tasks
+-
+-See `make help` for list of tasks.
+-
+-## API Keys
+-
+-Add `.env` with `SOME_API_KEY=API_KEY`. Then use `python-dotenv`:
+-
+-```python
+-import os
+-from dotenv import load_dotenv
+-load_dotenv()
+-os.environ.get('SOME_API_KEY')
+-```
+-
++Hello world
+
+--- /dev/null
++++ b/NEW.md
+@@ -0,0 +1 @@
++New file
+
+--- a/copier.yaml
++++ /dev/null
+@@ -1,3 +0,0 @@
+-project_name:
+-    type: str
+-    help: Project name (snake_case)
+
