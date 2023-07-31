@@ -71,7 +71,6 @@ class CodeAgent:
 {tool_descriptions}
 
 Given a programming task and a step-by-step sequence of actions using the tools described above, the objective is to complete the task.
-
 The arguments passed to a tool should be a Python list of strings.
 
 Each assistant response should be formatted as follows:

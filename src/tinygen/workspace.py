@@ -36,13 +36,12 @@ class Workspace:
 
     def find(self, pat: str) -> List[str]:
         repo_matches = self.repo.find_file(pat)
-        pat = re.compile(pat)
-        buf_matches = [b.path for b in self.buffers.values() if b.path not in repo_matches and pat.search(b.path or "")]
+        buf_matches = [b.path for b in self.buffers.values() if b.path not in repo_matches and query in b.path]
         return buf_matches + repo_matches
 
     def search(self, query: str) -> List[str]:
         repo_matches = self.repo.search(query)
-        buf_matches = [b.path for b in self.buffers.values() if b.path not in repo_matches and (b.edits or "").includes(query)]
+        buf_matches = [b.path for b in self.buffers.values() if b.path not in repo_matches and query in (b.edits or "")]
         return buf_matches + repo_matches
 
     def diff(self) -> str:
@@ -53,25 +52,25 @@ class Workspace:
 def tools(w: Workspace) -> List[Tool]:
     find_tool = Tool(
         "find",
-        "find PATTERN returns a list of paths that match given PATTERN. PATTERN is a valid regular expression for Python's re.compile.",
-        lambda arg: w.find(arg)
+        "find QUERY\nreturns a list of paths contain given QUERY. QUERY is a regular string",
+        lambda args: w.find(args[0])
     )
 
     search_tool = Tool(
         "search",
-        "search QUERY returns a list of paths to files containing that match QUERY. QUERY is a regular string",
-        lambda arg: w.search(arg)
+        "search QUERY\nreturns a list of paths to files containing that match QUERY. QUERY is a regular string",
+        lambda args: w.search(args[0])
     )
 
     open_tool = Tool(
         "open",
-        "open PATH returns contents of file at PATH.",
-        lambda arg: w.open(arg)
+        "open PATH\nreturns contents of file at PATH.",
+        lambda args: w.open(args[0]) or "EMPTY FILE"
     )
 
     write_tool = Tool(
         "write",
-        "write PATH CONTENT write CONTENT to the file at PATH. This overwrites existing content if any.",
-        lambda arg: w.write(args[0], ' '.join(
+        "write PATH CONTENT\nwrite CONTENT to the file at PATH. This overwrites existing content if any.",
+        lambda args: w.write(args[0], args[1]) or "OK"
     )
-    return [find_tool, grep_tool, open_tool, write_tool]
+    return [find_tool, search_tool, open_tool, write_tool]

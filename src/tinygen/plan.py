@@ -44,7 +44,11 @@ def create_plan_msgs(tools: List[Tool], task: str) -> List[dict]:
     
 {tool_descriptions}
 
-Given a programming goal, imagine three world class programming experts brainstorming a step-by-step plan that uses only the tools above. Each step of the plan should specify the exact tool to use, and the parameters that should be passed to the tool. The parameters are specified an python list of strings. Each expert shares their thoughts one at a time, considers what has been shared by other experts, then suggests a full step-by-step plan. The brainstorm repeats until the experts agree on step-by-step sequence to accomplish the programming goal. Output the step-by-step plan at the end of the response on a new line prefixed by "PLAN:"
+
+Given a programming goal, imagine three world class programming experts brainstorming a step-by-step plan that uses only the tools above. The arguments passed to a tool should be a Python list of strings.
+Each step of the plan should specify the exact tool to use, and the parameters that should be passed to the tool as a list of strings in valid Python syntax.
+
+Each expert shares their thoughts one at a time, considers what has been shared by other experts, then suggests a full step-by-step plan. The brainstorm repeats until the experts agree on step-by-step sequence to accomplish the programming goal. Output the step-by-step plan at the end of the response on a new line prefixed by "PLAN:"
     """.format(
         tool_descriptions=describe_tools(tools)
     )
