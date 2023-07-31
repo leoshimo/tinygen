@@ -67,6 +67,7 @@ class GithubRepo:
                 "accept": "application/vnd.github+json",
             })
         resp = r.json()
+
         return [f['path'] for f in resp['tree'] if pat.search(f['path']) ]
 
     def search(self, query: str) -> List[str]:
