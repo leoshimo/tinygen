@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from .github import GithubRepo
 from typing import Optional, List
 from .diff import unified_diff
+from .tool import Tool
 import re
 
 @dataclass
@@ -47,3 +48,30 @@ class Workspace:
     def diff(self) -> str:
         diffs = [unified_diff(b.path, b.orig, b.edit) for b in self.buffers.values()]
         return '\n'.join(list(filter(None, diffs)))
+
+
+def tools(w: Workspace) -> List[Tool]:
+    find_tool = Tool(
+        "find",
+        "find PATTERN returns a list of paths that match given PATTERN. PATTERN is a valid regular expression for Python's re.compile.",
+        lambda arg: w.find(arg)
+    )
+
+    search_tool = Tool(
+        "search",
+        "search QUERY returns a list of paths to files containing that match QUERY. QUERY is a regular string",
+        lambda arg: w.search(arg)
+    )
+
+    open_tool = Tool(
+        "open",
+        "open PATH returns contents of file at PATH.",
+        lambda arg: w.open(arg)
+    )
+
+    write_tool = Tool(
+        "write",
+        "write PATH CONTENT write CONTENT to the file at PATH. This overwrites existing content if any.",
+        lambda arg: w.write(args[0], ' '.join(
+    )
+    return [find_tool, grep_tool, open_tool, write_tool]
